@@ -1,0 +1,70 @@
+#landing{
+	height: 70vh;
+}
+
+#gitall{
+	letter-spacing: 4px;
+	text-shadow: 1px 0 #000000;
+	font-weight: bold;
+	font-size: 60px;
+	margin-bottom: 15px;
+}
+
+p{
+
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+/*Didn't use as not needed*/
+/*#landing_text{
+	justify-content: center;
+	align-items: center;
+}
+
+*/
+#landing_block {
+	background-color: #ffffff;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+#landing_block h1{
+	font-size: 60px;
+	color: #00AADE;
+}
+
+#landing_block p{
+	opacity: 85%;
+	font-size: 1.3em;
+	font-weight: lighter;
+	color: #999999;
+
+}
+
+
+#totos{
+	background-color: #ffffff;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.jumbotron{
+	margin-bottom:20px; 
+	color: #999999;
+	font-color: #000000;
+}
+
+
+#read_more{
+	border-color: #111111;
+	border-width: 2px;
+}
+
+#read_more a{
+	color: #999999;
+}
+
+#read_more a:hover{
+	text-decoration: none;
+	color:#00AADE;
+}

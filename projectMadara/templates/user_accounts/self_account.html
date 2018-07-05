@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load urlify %}
+
+{% block content %}
+<div class="clearfix" style="height: 10px;"></div>
+
+<div class="row">
+	<div class="col-md-1 col-md-offset-10">
+		<a class="btn btn-default" type="button" href="{% url 'accounts:update_user_account'%}">Update</a>
+	</div>
+</div>
+
+<div class="clearfix" hidden="10px;"></div>
+
+<div class="row" style="height: 340px;">
+	<div class="col-md-4">
+		{% if instance.photo %}
+		<img src="{{ instance.photo.url }}" class="img img-responsive" style="max-height: 300px; margin-top: 20px; margin-left: 20px;">
+		{% endif %}
+	</div>
+	<div class="col-md-6">
+		<h1>{{instance.user}}</h1>
+		<p>{{instance.bio}}</p>
+
+		<h2>Contact Details</h2>
+		<p>{{instance.email}}</p>
+		<p>{{instance.phone}}</p>
+
+		<h2>Social Links</h2>
+		<p>GitHub Account  : {{instance.github_link}}</p>
+		<p>LinkedIn Account: {{instance.linkedin_link}}</p>
+		<p>Facebook Account: {{instance.facebook_link}}</p>
+		<p>Twitter Account : {{instance.twitter_link}}</p>
+		<p>Reddit Account  : {{instance.reddit_link}}</p>
+	</div>
+</div>
+
+{% endblock %}

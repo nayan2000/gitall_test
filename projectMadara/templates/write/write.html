@@ -1,0 +1,29 @@
+{% extends '../base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% block style %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/write/write.css' %}">
+	{{ form.media }}
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<h1>{{title}}</h1>
+			<p>You are on the write page.</p>
+		</div>
+		<div class="col-md-8 col-md-offset-2">
+			<form method="POST" action="" enctype="multipart/form-data"> {%csrf_token%}
+			{{ form | crispy }} 
+			<input class="btn btn-submit" type="submit" value="Create" align="center"></input>		
+			</form>
+		</div>
+	</div>
+{% endblock %}[server]
+
+
+
+
+
+
+

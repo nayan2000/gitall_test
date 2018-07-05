@@ -1,0 +1,44 @@
+{% load staticfiles %}
+
+    <nav class="navbar">
+        <ul class="nav pull-left">
+            <li><a href="{% url 'index' %}"><img src="{% static 'img/icon.jpg' %}" class="img img-responsive home"></a></li>     
+        </ul>
+
+        <ul class="nav nav-pills pull-right">
+            {% url 'account_signup' as signup %}
+            {% url 'account_login' as login %}
+            {% url 'account_logout' as logout %}
+            {% url 'toto:write' as write %} 
+            {% url 'toto:list' as list %}
+            {% url 'toto:draft' as draft %}
+            {% url 'accounts:self_user_account' as self %}
+            {% if not request.user.is_authenticated %}
+                <li role="presentation" {% if request.path == signup %} class="active" {% endif %}><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                <li class="clearfix" style="width: 10px;"></li>
+                <li role="presentation" {% if request.path == login %} class="active" {% endif %}><a href="{% url 'account_login' %}">Log In</a></li>
+            {% else %}
+                {% block edit%}
+                {% endblock%}
+                <li role="presentation" {% if request.path == write%} class="active" {% endif %}><a href="{% url 'toto:write' %}">Write</a></li>
+                <li class="clearfix" style="width: 10px;"></li>
+                <li role="presentation" {% if request.path == list%} class="active" {% endif %}><a href="{% url 'toto:list' %}">List</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation" class="dropdown-item" {% if request.path == draft %} class="active" {% endif %}>
+                            <a href="{% url 'toto:draft' %}">Draft</a>
+                        </li>
+                        <li role="presentation" class="dropdown-item" {% if request.path == self %} class="active" {% endif %}>
+                            <a href="{% url 'accounts:self_user_account' %}">Profile</a>
+                        </li>
+
+                        <li role="separator" class="divider"></li>
+                        <li role="presentation" class="dropdown-item"{% if request.path == logout %} class="active" {% endif %}>
+                            <a href="{% url 'account_logout' %}">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>

@@ -1,0 +1,14 @@
+
+#id_content_editable{
+	min-height: 100vh;
+	border-width: 0px;
+	outline-style: none;
+}
+
+.ico{
+	color: #d3d3d3;
+}
+
+.ico i:hover{
+	color: #00aade;
+}

@@ -1,0 +1,185 @@
+##AWS Deployment
+
+[Error]
+
+  Collecting psycopg2==2.7.3 (from -r /opt/python/ondeck/app/requirements.txt (line 24))
+    Downloading psycopg2-2.7.3.tar.gz (425kB)
+      Complete output from command python setup.py egg_info:
+      running egg_info
+      creating pip-egg-info/psycopg2.egg-info
+      writing pip-egg-info/psycopg2.egg-info/PKG-INFO
+      writing top-level names to pip-egg-info/psycopg2.egg-info/top_level.txt
+      writing dependency_links to pip-egg-info/psycopg2.egg-info/dependency_links.txt
+      writing manifest file 'pip-egg-info/psycopg2.egg-info/SOURCES.txt'
+      warning: manifest_maker: standard file '-c' not found
+      
+      Error: pg_config executable not found.
+      
+      Please add the directory containing pg_config to the PATH
+      or specify the full executable path with the option:
+      
+          python setup.py build_ext --pg-config /path/to/pg_config build ...
+      
+      or with the pg_config option in 'setup.cfg'.
+      
+      ----------------------------------------
+  Command "python setup.py egg_info" failed with error code 1 in /tmp/pip-build-AzZV0n/psycopg2
+  You are using pip version 7.1.2, however version 9.0.1 is available.
+  You should consider upgrading via the 'pip install --upgrade pip' command.
+  2017-09-18 16:15:21,866 ERROR    Error installing dependencies: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1
+  Traceback (most recent call last):
+    File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 22, in main
+      install_dependencies()
+    File "/opt/elasticbeanstalk/hooks/appdeploy/pre/03deploy.py", line 18, in install_dependencies
+      check_call('%s install -r %s' % (os.path.join(APP_VIRTUAL_ENV, 'bin', 'pip'), requirements_file), shell=True)
+    File "/usr/lib64/python2.7/subprocess.py", line 541, in check_call
+      raise CalledProcessError(retcode, cmd)
+  CalledProcessError: Command '/opt/python/run/venv/bin/pip install -r /opt/python/ondeck/app/requirements.txt' returned non-zero exit status 1 (Executor::NonZeroExitStatus)
+
+[Solution]
+  Make sure you're installing postgresql93-devel in the config files
+
+[Error]
+
+       The headers or library files could not be found for jpeg,
+      a required dependency when compiling Pillow from source.
+      
+      Please see the install instructions at:
+         https://pillow.readthedocs.io/en/latest/installation.html
+[Solution]
+
+      addition of
+        libjpeg-turbo-devel: []
+        libpng-devel: []
+
+
+[Error]
+	When Bootstrap's JS CDN is enabled, it blocks the functionality of the nav button for option of logging out.
+
+
+[Error]
+
+  apache is not running but it's supposed to be
+
+[Solution]
+  sudo service httpd start
+
+
+[Error]
+SESSION_COOKIE_SECURE = True
+
+  renders the error when trying to log-into the account
+
+CSRF_COOKIE_SECURE = True
+  
+  renders url-routing error
+
+
+[Error] 21.12.18
+ValueError: invalid literal for int() with base 10: 'admin'
+
+  when enabling user profile viewing
+
+    views.py code
+      def user_profile(request, username):
+      profile = UserProfile.objects.get(user=username)
+      context = {
+        'profile' : profile,
+      }
+      template = 'profiles/profile.html'
+      return render(request, template, context)
+
+    urls.py code
+        url('^(?P<username>[\w.@+-]+)/$', views.user_profile, name='user_profile'), 
+
+[solution]
+https://stackoverflow.com/questions/27029198/invalid-literal-for-int-with-base-10username
+
+  In short: user is the super-set
+            we needed to modify our filter to match the actual username at auth.User model with
+
+            profile = UserProfile.objects.get(user__username=username)
+
+            or 
+
+            profile = get_object_or_404(UserProfile, user__username=username)
+
+
+[Error] 21.12.17
+UnboundLocalError at /profiles/you/update/
+local variable 'profile' referenced before assignment
+  
+  At line 135: context = { 'profile': profile, }
+    """
+      [views.py code]
+    """
+    @login_required
+    def self_profile(request):
+      if request.method == 'POST':
+        form = UserProfileForm(request.POST or None)
+
+        if form.is_valid:
+          profile = UserProfile.objects.get(user=request.user)
+          
+          profile.name = form.cleaned_data['name']
+          profile.bio = form.cleaned_data['bio']
+          profile.phone = form.cleaned_data['phone']
+          profile.email = form.cleaned_data['email']
+          profile.status = form.cleaned_data['status']
+
+          profile.save()
+
+          # return redirect('/you/')
+      else:
+        form = UserProfileForm()
+
+      template = 'profiles/self.html'
+      context = {
+        'profile' : profile,
+      }
+      return render(request, template, context)  }
+
+[Solution]
+// take another look
+
+
+[Error] 14. Feb. 2018
+While putting to production
+  [ in eb-activity.log ]
+
+  File "/opt/python/run/venv/local/lib64/python2.7/site-packages/psycopg2/__init__.py", line 130, in connect
+  conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+  django.db.utils.OperationalError: could not connect to server: Connection refused
+  Is the server running on host "127.0.0.1" and accepting
+  TCP/IP connections on port 5432?
+  
+   (ElasticBeanstalk::ExternalInvocationError)
+
+
+  [on command line]
+
+  ERROR: [Instance: i-0e1e1745adefda080] Command failed on instance. Return code: 1 Output: (TRUNCATED)...0, in connect
+  conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+  django.db.utils.OperationalError: could not connect to server: Connection refused
+  Is the server running on host "127.0.0.1" and accepting
+  TCP/IP connections on port 5432?. 
+
+
+  [solution]
+  1. Connecting via SSH and installing psycopg2 manually via pip
+
+  2. 
+
+
+[Error] 
+  500 Server error on LOGIN and ADMIN pages.
+  [On debug=true]
+  Site matching query does not exist
+
+  [REASON]  
+  SITE_ID = value
+  this value must be the key value corresponding to the sites parameter in the admin panel
+
+  [Solution]
+  SITE_ID = 3
+  How? Someone must've deleted the previous value and created another.

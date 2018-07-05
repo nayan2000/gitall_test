@@ -1,0 +1,114 @@
+To enter the database
+
+sudo su - postgres
+
+	<superuser do> <superuser> - <user-postgres>
+
+psql -d madara
+
+<psql> <database> <database name>
+
+
+\d 
+<list all the tables in the database>
+
+// ==== Deleting the whole database =====
+
+psql
+
+drop database <name_of_database>;
+//=================		OUR COLOR CODE 	==================
+
+#00AADE color code
+
+
+More about it here: http://www.color-hex.com/color/00aade
+
+
+// ======== enable_mod_deflate.conf in .ebextensions/ =====
+
+to enable gzip compression so files are downloaded faster by the clients
+
+
+// ======== adding environment variables ======
+export SECRET_KEY='secret_key_values'
+
+
+// ======== adding environment variables in elasticbeanstalk =====
+eb setenv key=value
+
+
+// ======== avoiding the letsencrypt verification =========
+./certbot-auto certonly --agree-tos --renew-by-default --manual --preferred-challenges=dns
+
+This enables verification through dns management
+
+
+// ======= to enter the root access =======
+
+sudo -i
+
+with root access you'll be able to access the areas otherwise not accessible
+
+
+sudo ssh -i Desktop/auth/project_madara.pem ec2-54-214-117-56.us-west-2.compute.amazonaws.com
+ssh -i ../Pem\ File/project_madara_key.pem ec2-54-214-117-56.us-west-2.compute.amazonaws.com
+
+// the website used to get the ssl certificate
+
+https://gethttpsforfree.com/
+
+
+<VirtualHost _default_:443>
+ServerName gitall.tech:443
+ServerAlias www.gitall.tech
+SSLEngine on
+SSLCertificateFile    /etc/ssl/certs/domain.crt
+SSLCertificateKeyFile /etc/ssl/private/domain.key
+SSLCertificateChainFile /etc/ssl/certs/intermediate.pem
+SSLProtocol all -SSLv2 -SSLv3
+SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA;
+SSLHonorCipherOrder on
+        <Directory /var/www/html>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride All
+                Order allow,deny
+                allow from all
+        </Directory>
+</VirtualHost>
+
+
+TERA WEBROOT PATH KYA HAI YAHAN PASTE KAR 
+ruko
+/opt/python/current/app/projectMadara/projectMadara/
+
+terminal de 
+
+/opt/python/run/venv/bin/activate
+
+
+INFO: createEnvironment is starting.
+INFO: Using elasticbeanstalk-us-west-2-896777593331 as Amazon S3 storage bucket for environment data.
+INFO: Created security group named: sg-5a9d0425
+INFO: Created load balancer named: awseb-e-k-AWSEBLoa-14HY7BXX1Q7P2
+INFO: Created security group named: awseb-e-kgxf2kh224-stack-AWSEBSecurityGroup-1NNTBZ8GQGRKC
+INFO: Created Auto Scaling launch configuration named: awseb-e-kgxf2kh224-stack-AWSEBAutoScalingLaunchConfiguration-ZJGSOW0SENMD
+INFO: Created Auto Scaling group named: awseb-e-kgxf2kh224-stack-AWSEBAutoScalingGroup-18ND6VP2EHHUR
+INFO: Waiting for EC2 instances to launch. This may take a few minutes.
+INFO: Created Auto Scaling group policy named: arn:aws:autoscaling:us-west-2:896777593331:scalingPolicy:a9d766ce-4db3-44f7-9bb1-9024742a9c4e:autoScalingGroupName/awseb-e-kgxf2kh224-stack-AWSEBAutoScalingGroup-18ND6VP2EHHUR:policyName/awseb-e-kgxf2kh224-stack-AWSEBAutoScalingScaleDownPolicy-CN3F7XRXKY91
+INFO: Created Auto Scaling group policy named: arn:aws:autoscaling:us-west-2:896777593331:scalingPolicy:d30fcd23-0682-4760-b266-cec34c0bf927:autoScalingGroupName/awseb-e-kgxf2kh224-stack-AWSEBAutoScalingGroup-18ND6VP2EHHUR:policyName/awseb-e-kgxf2kh224-stack-AWSEBAutoScalingScaleUpPolicy-W7P44QSYFP5T
+INFO: Created CloudWatch alarm named: awseb-e-kgxf2kh224-stack-AWSEBCloudwatchAlarmLow-1HDIE4MTELVTL
+INFO: Created CloudWatch alarm named: awseb-e-kgxf2kh224-stack-AWSEBCloudwatchAlarmHigh-PKURXG2BUTIV
+
+
+
+AWS endpoint
+
+
+
+ psql \
+   --host=aa19wk1glloebvh.cgw1qfowfz4q.us-west-2.rds.amazonaws.com\
+   --port=5432 \
+   --username gitalltech \
+   --password \
+   --dbname=ebdb
