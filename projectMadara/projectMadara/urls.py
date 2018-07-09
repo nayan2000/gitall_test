@@ -20,19 +20,21 @@ from django.contrib import admin
 
 #
 # To import urls for static files.
-from django.conf import settings 
+from django.conf import settings
 from django.conf.urls.static import static
 
 """
-Customizing the path location of the error pages [templates/errors/]. 
+Customizing the path location of the error pages [templates/errors/].
 Django looks them up by default at templates/
 
 """
 from django.conf.urls import handler404, handler500, handler400, handler403
 from main import views as main_views
+from tags import views as tag_views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^tags/', include('tags.urls', namespace="tags")),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^', include('main.urls')),
     url(r'^contact/', include('contact.urls')),

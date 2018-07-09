@@ -34,10 +34,26 @@
 			<p>Author: <a href="/u/{{ instance.user }}">{{instance.user}}</a></p>
 		{% endif %}
 		{{ instance.publish }} </br>
-		{% if instance.tags %}
-		<h6> Tags : </h6> {{ instance.tags }}
-		{% endif %}
+		{% if tags %}
+		<h6> Tags : </h6>
+{% for tag in tags %}
+<span><button type="button" class="btn btn-primary">
+  {{ tag }}<span><a href="{{instance.get_absolute_url}}{{tag}}/delete_tag/" class="badge badge-primary"> x </a></span>
+</button></span>
+
+{% endfor %}
+{% else %}
+<h6 style="font-weight: bold;"> Tags : Oops! No tags found </h6>
+{% endif %}
+<br /> <br />
+<a href="{% url 'tags:create_tag' %}">
+	<button type="button" class="btn btn-primary">
+<span style="color: white">Create a New Tag </span><span><a href="{% url 'tags:create_tag' %}"  class="badge badge-primary" > GO </a></span>
+</button></a>
+	<hr />
+
 		<hr/>
+
 		{% if instance.cover_photo %}
 			<img src="{{ instance.cover_photo.url }}" class="img-responsive">
 		{% endif %}

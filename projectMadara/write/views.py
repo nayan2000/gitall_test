@@ -12,6 +12,7 @@ from .models import Toto
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from django.db.models import Q
+from tags.models import Tag
 from comments.models import Comment
 from comments.forms import CommentForm
 from accounts.models import UserAccount
@@ -28,12 +29,21 @@ def toto_create(request):
 	if form.is_valid():
 		instance = form.save(commit=False)
 		filter_content(instance.content)
+		toto_tags = form.cleaned_data['tags']
+		print(toto_tags)
 		instance.user = request.user
 		instance.save()
+		for tag in toto_tags:
+			if (len(tag.text.split(' '))>1):
+				messages.error(request, "Tags cant contain spaces", extra_tags='')
+				continue
+			instance.tags.add(tag)
+		tags = instance.tags.all()
+		print(tags)
 		messages.success(request, "Toto created!")
 		return HttpResponseRedirect(instance.get_absolute_url())
 	else:
-		messages.error(request, "Something went wrong", extra_tags="") 
+		messages.error(request, "Something went wrong", extra_tags="")
 	context = {
 		'title': "Create",
 		'form' : form,
@@ -47,7 +57,8 @@ def toto_detail(request, slug):
 		if not request.user == instance.user:
 			raise Http404
 	share_string = quote_plus("Hey! I've just started learning from gitall.tech. It's cool. Check them out!!!")
-
+	tags = instance.tags.all()
+	print(tags)
 	initial_data = {
 			"content_type": instance.get_content_type,
 			"object_id": instance.id
@@ -55,7 +66,7 @@ def toto_detail(request, slug):
 
 	comment_form = CommentForm(request.POST or None, initial=initial_data)
 
-	
+
 	if comment_form.is_valid():
 		if request.user.is_authenticated:
 
@@ -87,10 +98,10 @@ def toto_detail(request, slug):
 			return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
 
 		else:
-			messages.error(request,"You must be logged in to comment!")	
-			
+			messages.error(request,"You must be logged in to comment!")
 
-			
+
+
 
 	comments = instance.comments
 
@@ -100,12 +111,13 @@ def toto_detail(request, slug):
 		'share_string' 	: share_string,
 		'comments' : comments,
 		'comment_form' : comment_form,
+		"tags":tags,
 	}
 
 	return render(request, 'write/detail.html', context)
 
 def toto_edit(request, slug):
-	# This retuns the data (for form) the particular toto 
+	# This retuns the data (for form) the particular toto
 	instance = get_object_or_404(Toto, slug=slug)
 
 	if not request.user == instance.user:
@@ -126,7 +138,7 @@ def toto_edit(request, slug):
 		messages.success(request,"Edited nicely!")
 		return HttpResponseRedirect(instance.get_absolute_url())
 	else:
-		messages.error(request, "Something didn't edit.", extra_tags="") 
+		messages.error(request, "Something didn't edit.", extra_tags="")
 
 	context = {
 		'title': "Edit",
@@ -138,7 +150,7 @@ def toto_edit(request, slug):
 def toto_list(request):
 	# queryset_list = Toto.objects.all().order_by("-timestamp")
 	# queryset_list = Toto.objects.filter(draft=False).filter(publish__lte=timezone.now())
-	# the above command is implemented by using 
+	# the above command is implemented by using
 	queryset_list = Toto.objects.active()
 
 	query = request.GET.get('query')
@@ -152,7 +164,7 @@ def toto_list(request):
 	paginator = Paginator(queryset_list, 1)
 
 	page = request.GET.get('page')
-	
+
 	try:
 		queryset_list = paginator.page(page)
 	except PageNotAnInteger:
@@ -197,3 +209,12 @@ def toto_draft(request):
 
 def filter_content(content):
 	print(content)
+
+def delete_tag(request, slug, text):
+	instance = get_object_or_404(Toto, slug=slug)
+	tag = get_object_or_404(Tag, text=text)
+	print(instance.tags.all())
+	instance.tags.remove(tag)
+	print(instance.tags.all())
+	instance.save()
+	return redirect("toto:detail", slug=slug)

@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 # from __future__ import unicode_literals
-
+from tags.models import *
 from django.conf import settings
 from django.db import models
 from django.core.urlresolvers import reverse
 #for slug field
-from taggit.managers import TaggableManager
 from django.db.models.signals import pre_save
 from django.contrib.contenttypes.models import ContentType
 from django.utils.text import slugify
@@ -46,9 +45,10 @@ class Toto(models.Model):
 
     draft        = models.BooleanField(default=False)
     publish      = models.DateTimeField(auto_now=True)
+    tags = models.ManyToManyField('tags.Tag', related_name='tutorials')
 
     objects = TotoManager()
-    tags = TaggableManager()
+
     def __str__(self):
         return self.title
 

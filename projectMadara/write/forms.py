@@ -12,7 +12,7 @@ class TotoForm(forms.ModelForm):
 	# content = forms.CharField(widget=PagedownWidget)
 	class Meta:
 		model = Toto
-		fields = ('draft','cover_photo','title','content')
+		fields = ('draft','cover_photo','title','content', 'tags')
 
 		widgets = {
 			'content' : MediumEditorTextarea(attrs={'class':'content'}),

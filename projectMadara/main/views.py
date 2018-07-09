@@ -68,3 +68,15 @@ def partners(request):
     template = 'main/partners.html'
 
     return render(request, template, context)
+
+def terms(request):
+    context = {}
+    template = 'main/terms.html'
+
+    return render(request, template, context)
+
+def privacy(request):
+    context = {}
+    template = 'main/privacy.html'
+
+    return render(request, template, context)
