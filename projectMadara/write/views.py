@@ -111,7 +111,8 @@ def toto_detail(request, slug):
 								content = content_data,
 								parent = parent_obj,
 									)
-			return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
+			if new_comment:
+				return HttpResponseRedirect(new_comment.content_object.get_absolute_url())
 
 		else:
 			messages.error(request,"You must be logged in to comment!")

@@ -61,7 +61,8 @@
 {% if request.user.is_authenticated %}
 <form method="POST" action="" enctype="multipart/form-data"> {%csrf_token%}
 {{ add_tags_form | crispy }}
-<input class="btn btn-submit" type="submit" value="Add" align="center"></input>
+<input class="btn btn-submit" type="submit" value="Add" align="center" />
+</form>
 {% endif %}
 	<hr />
 
@@ -107,7 +108,7 @@
 
         <p class='lead'>Comments</p>
         {% if request.user.is_authenticated %}
-        <form method="POST" action="."> {% csrf_token %}
+        <form method="POST" action=""> {% csrf_token %}
             {{ comment_form|crispy }}
             <input type='submit' value='Post comment' class='btn btn-default'>
         </form>
@@ -131,7 +132,7 @@
          {% endfor %}
 
         {% if request.user.is_authenticated %}
-            <form method="POST" action="."> {% csrf_token %}
+            <form method="POST" action=""> {% csrf_token %}
                 {{ comment_form|crispy }}
                 <input type='hidden' name='parent_id' value='{{ comment.id }}'>
                 <input type='submit' value='Reply' class='btn btn-default'>
