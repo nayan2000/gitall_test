@@ -1,0 +1,125 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <meta name="description" content="Project Madara">
+    <meta name="author" content="Clan GitAll">
+
+  <title>Beta | GitAll</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet"> -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{% static 'css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <link rel="icon" href="{% static 'img/favicon.ico'%}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116629824-1"></script>
+
+    <!-- for dark mode JS -->
+    <script src="{% static 'js/darkm.js' %}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-116629824-1');
+    </script>
+    <!-- Pre-loader -->
+    <script>
+      $(window).load(function() {
+		    // Animate loader off screen
+		    $(".se-pre-con").fadeOut("slow");;
+	     });
+    </script>
+    <!-- Additional page specific style and js files come here -->
+    {% block style %}
+    {% endblock %}
+  </head>
+  <body id="body">
+      <div class="se-pre-con"></div>
+    <header class="header">
+      <div class="container">
+        {% include 'navbar.html'%}
+      </div>
+    </header>
+    <section class="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-md-offset-4">
+            {% if messages %}
+              <ul class="messages">
+              {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+      </div>
+    </section>
+    <footer class="footer" >
+      <div class="container">
+        {% include 'footer.html'%}
+      </div>
+      <input type="button" class="changeBg" onclick="night();" value="Night" />
+      <input type="button" class="changeBg" onclick="reset();" value="Reset" />
+    </footer>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script type="text/javascript" src="{% static 'js/ie10-viewport-bug-workaround.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+    <!-- Font Awsome Icons -->
+    <script src="https://use.fontawesome.com/2679849e02.js"></script>
+
+    <!-- JS for the editor -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+          $(".content-markdown").each(function(){
+            var content = $(this).text();
+            console.log(content);
+            var marked_content = marked(content);
+            console.log(marked_content);
+            $(this).html(marked_content);
+        })
+
+          $(".content-markdown img").each(function(){
+            $(this).addClass("img-responsive")
+        })
+      })
+
+          $(".comment-reply-btn").click(function(event){
+            event.preventDefault();
+            $(this).parent().next(".comment-reply").fadeToggle();
+            })
+
+    </script>
+
+</body>
+</html>

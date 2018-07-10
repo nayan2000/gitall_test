@@ -1,0 +1,112 @@
+*{
+	font-family: 'Montserrat', sans-serif;
+}
+
+/*body{
+	background-color: #eeeeee;
+	margin: 0px;
+}*/
+
+h1{
+	letter-spacing: 1.5px;
+	font-weight: bold;
+	font-size: 40px;
+}
+
+.home {
+	max-height: 45px;
+	max-width: 45px;
+}
+
+.home a:hover{
+	text-decoration: none;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.nav{
+	margin-top: 20px;
+}
+
+.nav-pills a{
+	font-weight: bold;
+	color: #00AADE;
+}
+
+.nav-pills a:hover {
+	color:#00769b;
+}
+
+section{
+	min-height: 100%;
+}
+
+.btn-default {
+	text-decoration: none;
+}
+
+.btn-default:hover {
+	border: 1px solid #111111;
+}
+
+
+/*********************************************
+-----------      Footbar        --------------
+**********************************************/
+footer 
+{	
+/*	position: absolute;*/
+/*	height: 70px;*/
+	margin-top: 100px;
+	right: 0;
+	left: 0;
+	bottom: 0;
+}
+
+
+.footer-nav li
+{
+	display: inline;
+}
+
+.footer-nav li:not(:first-child):before
+{
+	content: '|';
+	padding: 0px 10px;
+}
+
+.footer-nav a
+{
+	color:#999999;
+}
+
+.footer-nav a:hover
+{
+	/*color : #fff;*/
+
+	color: #00AADE;
+	text-decoration: none;
+}
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: url(Preloader_2.gif) center no-repeat #fff;
+}
+
+.darkSwitch{
+    background:#999999;
+}
+input{
+ float:right;
+ margin-bottom: 30px;
+}
+
+.comment-reply{
+	display:none;
+	}
