@@ -17,3 +17,8 @@ class TotoForm(forms.ModelForm):
 		widgets = {
 			'content' : MediumEditorTextarea(attrs={'class':'content'}),
 		}
+
+class AddTagsForm(forms.ModelForm):
+	class Meta:
+		model = Toto
+		fields = ('tags', )
