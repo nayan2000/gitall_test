@@ -45,7 +45,7 @@ class Toto(models.Model):
 
     draft        = models.BooleanField(default=False)
     publish      = models.DateTimeField(auto_now=True)
-    tags = models.ManyToManyField('tags.Tag', related_name='tutorials')
+    tags = models.ManyToManyField('tags.Tag', related_name='tutorials', blank=True)
 
     objects = TotoManager()
 

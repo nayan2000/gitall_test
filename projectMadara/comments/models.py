@@ -34,7 +34,7 @@ class Comment(models.Model):
         ordering = ['-timestamp']
 
 
-    def __unicode__(self):  
+    def __unicode__(self):
         return str(self.user.username)
 
     def __str__(self):
@@ -44,8 +44,8 @@ class Comment(models.Model):
         return reverse("comments:thread", kwargs={"id": self.id})
 
     def get_delete_url(self):
-        return reverse("comments:delete", kwargs={"id": self.id})        
-        
+        return reverse("comments:delete", kwargs={"id": self.id})
+
     def children(self): #replies
         return Comment.objects.filter(parent=self)
 

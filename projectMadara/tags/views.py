@@ -4,6 +4,7 @@ from django.contrib import messages
 from accounts.models import UserAccount
 from django.utils import timezone
 from django.http import HttpResponseRedirect, Http404
+from write.models import *
 
 def create_tag(request):
 	"""

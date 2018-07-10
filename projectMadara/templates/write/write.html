@@ -16,12 +16,7 @@
 			<form method="POST" action="" enctype="multipart/form-data"> {%csrf_token%}
 			{{ form | crispy }}
 			<hr/>
-			<a href="{% url 'tags:create_tag' %}">
-				<button type="button" class="btn btn-primary">
-			<span style="color: white">Create a New Tag </span><span><a href="{% url 'tags:create_tag' %}"  class="badge badge-primary" > GO </a></span>
-			</button></a>
 
-				<hr />
 			<input class="btn btn-submit" type="submit" value="Create" align="center"></input>
 			</form>
 		</div>

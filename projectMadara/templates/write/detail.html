@@ -5,7 +5,6 @@
 
 {% block style %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/write/write.css' %}">
-	{{ form.media }}
 {% endblock %}
 
 <!-- For edit feature -->
@@ -46,10 +45,24 @@
 <h6 style="font-weight: bold;"> Tags : Oops! No tags found </h6>
 {% endif %}
 <br /> <br />
-<a href="{% url 'tags:create_tag' %}">
+
+<a href="{{instance.get_absolute_url}}add_tag/">
+	<button type="button" class="btn btn-primary">
+<span style="color: white">Create and Add a New Tag </span><span><a href="{{instance.get_absolute_url}}add_tag/"  class="badge badge-primary" > GO </a></span>
+</button></a>
+<!-- <a href="{% url 'tags:create_tag' %}">
 	<button type="button" class="btn btn-primary">
 <span style="color: white">Create a New Tag </span><span><a href="{% url 'tags:create_tag' %}"  class="badge badge-primary" > GO </a></span>
-</button></a>
+</button></a> -->
+	<button type="button" class="btn btn-primary">
+<span style="color: white">Add Existing Tags</span>
+</button>
+
+{% if request.user.is_authenticated %}
+<form method="POST" action="" enctype="multipart/form-data"> {%csrf_token%}
+{{ add_tags_form | crispy }}
+<input class="btn btn-submit" type="submit" value="Add" align="center"></input>
+{% endif %}
 	<hr />
 
 		<hr/>

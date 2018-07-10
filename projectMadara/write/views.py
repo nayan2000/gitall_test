@@ -7,7 +7,9 @@ from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Responsible for converting description into sharable text.
 from urllib.parse import quote_plus
-from .forms import TotoForm
+from tags.forms import TagForm
+from tags.models import *
+from .forms import TotoForm, AddTagsForm
 from .models import Toto
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
@@ -53,12 +55,26 @@ def toto_create(request):
 def toto_detail(request, slug):
 	instance 		= get_object_or_404(Toto, slug=slug)
 
+
 	if instance.publish > timezone.now() or instance.draft:
 		if not request.user == instance.user:
 			raise Http404
-	share_string = quote_plus("Hey! I've just started learning from gitall.tech. It's cool. Check them out!!!")
+
 	tags = instance.tags.all()
-	print(tags)
+	share_string = quote_plus("Hey! I've just started learning from gitall.tech. It's cool. Check them out!!!")
+	add_tags_form = AddTagsForm(request.POST or None)
+
+	if add_tags_form.is_valid():
+		form_instance = add_tags_form.save(commit=False)
+		toto_tags = add_tags_form.cleaned_data['tags']
+		for tag in toto_tags:
+			if (len(tag.text.split(' '))>1):
+				messages.error(request, "Tags cant contain spaces", extra_tags='')
+				continue
+			instance.tags.add(tag)
+		messages.success(request, "Tags added")
+	else:
+		messages.error(request, "Tags not added", extra_tags='')
 	initial_data = {
 			"content_type": instance.get_content_type,
 			"object_id": instance.id
@@ -112,8 +128,8 @@ def toto_detail(request, slug):
 		'comments' : comments,
 		'comment_form' : comment_form,
 		"tags":tags,
+		'add_tags_form' : add_tags_form,
 	}
-
 	return render(request, 'write/detail.html', context)
 
 def toto_edit(request, slug):
@@ -209,6 +225,46 @@ def toto_draft(request):
 
 def filter_content(content):
 	print(content)
+
+def add_tag(request, slug):
+	"""
+		This makes sure that the form accpets a POST requests (of some data) or Nothing.
+		Without this the form would even accept empty totos.
+	"""
+	if not request.user.is_authenticated():
+		raise Http404
+	form = TagForm(request.POST or None)
+	text = form['text'].value()
+	print(text)
+	toto = get_object_or_404(Toto, slug=slug)
+	all = Tag.objects.all()
+	flag = 0
+	for a in all:
+		if (text==a.text):
+			flag = 1
+			break
+	if (flag == 1):
+		toto.tags.add(a)
+		toto.save()
+		messages.success(request, "Tag added!")
+		return redirect("toto:detail", slug=slug)
+	if form.is_valid():
+		instance = form.save(commit=False)
+		instance.user = request.user
+		instance.save()
+		toto = get_object_or_404(Toto, slug=slug)
+		toto.tags.add(instance)
+		toto.save()
+		print(toto.tags.all())
+		messages.success(request, "Tag added!")
+		return redirect("toto:detail", slug=slug)
+	message = "Spaces are not allowed in tag name."
+	messages.error(request, message, extra_tags="")
+	context = {
+		'title': "Create",
+		'form' : form,
+	}
+	return render(request, 'tags/add.html', context)
 
 def delete_tag(request, slug, text):
 	instance = get_object_or_404(Toto, slug=slug)
