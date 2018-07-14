@@ -1,3 +1,7 @@
+"""
+   Model for comment system.
+   Models are use to incorporate a database into a Django project
+"""
 from __future__ import unicode_literals
 
 from django.conf import settings
@@ -8,6 +12,10 @@ from django.db import models
 
 
 class CommentManager(models.Manager):
+    """
+       A manager class for changing or updating the model class forcomment system
+    """
+
     def all(self):
         qs = super(CommentManager, self).filter(parent=None)
         return qs
@@ -18,7 +26,12 @@ class CommentManager(models.Manager):
         qs = super(CommentManager, self).filter(content_type=content_type, object_id= obj_id).filter(parent=None)
         return qs
 
+
+
 class Comment(models.Model):
+    """
+        Model class for our comment system
+    """
     user        = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
     object_id = models.PositiveIntegerField()
@@ -50,7 +63,7 @@ class Comment(models.Model):
         return Comment.objects.filter(parent=self)
 
     @property
-    def is_parent(self):
+    def is_parent(self):# property if parent exists or not.
         if self.parent is not None:
             return False
         return True

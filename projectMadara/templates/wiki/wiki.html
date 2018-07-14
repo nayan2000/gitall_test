@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div align="right"><a href="{% url 'wiki:wiki_add' %}" class="btn btn-success">Add</a> </div>
+
+{% for i in wiki %}
+    <div class="row">
+        <a href="{{ i.get_absolute_url }}"">
+            <div class="col-md-6 col-md-offset-3">
+                <div id="totos" class="jumbotron">
+                    <div class="row">
+                        <div class="col-md-10 col-md-offset-1" align="center">
+                            <h3 style="font-weight: bold; color:#000000;">{{ i.title }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endfor %}
+
+{% endblock %}

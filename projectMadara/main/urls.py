@@ -12,3 +12,4 @@ urlpatterns = [
     url(r'^google5715b52ab8f3659c', google_verification,
         name='google_verification'),
 ]
+

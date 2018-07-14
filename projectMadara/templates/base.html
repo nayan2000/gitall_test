@@ -30,14 +30,14 @@
 
     <link rel="icon" href="{% static 'img/favicon.ico'%}">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" id="default" type="text/css" href="{% static 'css/base.css' %}">
+
 
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116629824-1"></script>
 
-    <!-- for dark mode JS -->
-    <script src="{% static 'js/darkm.js' %}"></script>
+
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
@@ -56,11 +56,12 @@
     {% block style %}
     {% endblock %}
   </head>
-  <body id="body">
+  <body>
       <div class="se-pre-con"></div>
     <header class="header">
       <div class="container">
         {% include 'navbar.html'%}
+        <button class="btn btn-default" style="border-radius:50%" id="night-mode"> 🌛 </button>
       </div>
     </header>
     <section class="content">
@@ -84,8 +85,6 @@
       <div class="container">
         {% include 'footer.html'%}
       </div>
-      <input type="button" class="changeBg" onclick="night();" value="Night" />
-      <input type="button" class="changeBg" onclick="reset();" value="Reset" />
     </footer>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
@@ -93,6 +92,8 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/darkm.js' %}"></script>
+
 
     <!-- Font Awsome Icons -->
     <script src="https://use.fontawesome.com/2679849e02.js"></script>
@@ -100,7 +101,7 @@
     <!-- JS for the editor -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
     <script type="text/javascript">
-      $(document).ready(function(){
+           $(document).ready(function(){
           $(".content-markdown").each(function(){
             var content = $(this).text();
             console.log(content);
@@ -108,18 +109,15 @@
             console.log(marked_content);
             $(this).html(marked_content);
         })
-
           $(".content-markdown img").each(function(){
             $(this).addClass("img-responsive")
         })
       })
-
           $(".comment-reply-btn").click(function(event){
             event.preventDefault();
             $(this).parent().next(".comment-reply").fadeToggle();
             })
-
-    </script>
+     </script>
 
 </body>
 </html>

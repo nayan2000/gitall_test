@@ -4,6 +4,7 @@ footer
 	right: 0;
 	left: 0;
 	bottom: 0;
+	padding-bottom:17px ;
 }
 
 .footer-nav-right
@@ -36,12 +37,14 @@ footer
 .footer-nav a
 {
 	color:grey;
-
 }
-
 .footer-nav a:hover
 {
 	color: #00AADE;
 	text-decoration: none;
+}
+
+hr{
+	border-top: 1px solid gray;
 }
 

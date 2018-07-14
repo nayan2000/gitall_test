@@ -4,7 +4,9 @@
         <ul class="nav pull-left">
             <li><a href="{% url 'index' %}"><img src="{% static 'img/icon.jpg' %}" class="img img-responsive home"></a></li>     
         </ul>
-
+        <ul class="nav nav-pills pull-right">
+            <a href="{% url 'wiki:wiki_home' %}" class="btn btn-info" style="color:black">Wiki Page</a>
+        </ul>
         <ul class="nav nav-pills pull-right">
             {% url 'account_signup' as signup %}
             {% url 'account_login' as login %}

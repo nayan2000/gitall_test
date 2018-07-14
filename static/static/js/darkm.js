@@ -1,38 +1,35 @@
-
-function night() {
-    body.className = "darkSwitch";
-};
-
-function reset() {
-    body.className = "";
-};
-
-$(function () {
-    /* RegEx to grab the "bgColor" cookie */
-    var bgColor = document.cookie.replace(/(?:(?:^|.*;\s*)bgColor\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-
-    var button = $('input[type=button].changeBg');
-    button.on('click', function (event) {
-        event.preventDefault();
-
-        /* Executing the function associated with the button */
-        eval($(this).val().toLowerCase() + "();");
-
-        button.not($(this)).removeAttr('disabled');
-        if ($(this).val() != "Reset") {
-            $(this).attr('disabled', '');
-
-            /* Here we create the cookie and set its value, does not happen if it's Reset which is fired. */
-            document.cookie = "bgColor="+$(this).val();
+          ;(function (window, document, undefined) {
+        'use strict';
+        if (!('localStorage' in window)) return;
+        var nightMode = localStorage.getItem('gmtNightMode');
+        if (nightMode) {
+          document.documentElement.className += 'night-mode';
         }
-    });
-
-    /* If the cookie is not empty on page load, execute the function of the same name */
-    if(bgColor.length > 0)
-    {     
-        eval(bgColor.toLowerCase()+'()');
-
-        /* Disable the button associated with the function name */
-        $('button[value="'+bgColor+'"]').attr("disabled","disabled");
-    }
-});
+      })(window, document);
+      
+      
+      ;(function (window, document, undefined) {
+      
+        'use strict';
+      
+        // Feature test
+        if (!('localStorage' in window)) return;
+      
+      
+      
+        // Get our newly insert toggle
+        var nightMode = document.querySelector('#night-mode');
+        if (!nightMode) return;
+      
+        // When clicked, toggle night mode on or off
+        nightMode.addEventListener('click', function (event) {
+          event.preventDefault();
+          document.documentElement.classList.toggle('night-mode');
+          if ( document.documentElement.classList.contains('night-mode') ) {
+            localStorage.setItem('gmtNightMode', true);
+            return;
+          }
+          localStorage.removeItem('gmtNightMode');
+        }, false);
+      
+      })(window, document);

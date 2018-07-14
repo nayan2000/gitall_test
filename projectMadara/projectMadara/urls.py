@@ -40,8 +40,10 @@ urlpatterns = [
     url(r'^u/', include('accounts.urls', namespace="accounts")),
     url(r'^join/', include('slack_invite.urls')),
     url(r'^tutorial/', include('write.urls', namespace="toto")),
+    url(r'^wiki/', include('wiki.urls', namespace='wiki')),
     url(r'^comments/', include("comments.urls", namespace='comments')),
     url(r'^tags/', include('tags.urls', namespace="tags")),
+
 ]
 
 # When the debug mode is false,

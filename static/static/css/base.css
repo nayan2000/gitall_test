@@ -1,11 +1,21 @@
 *{
 	font-family: 'Montserrat', sans-serif;
 }
+/*apply dark mode*/
 
-/*body{
-	background-color: #eeeeee;
-	margin: 0px;
-}*/
+.night-mode body{
+    background-color: #373a3c;
+	color: #ffffff;
+	mix-blend-mode: difference;
+	transition:background-color 2s;
+}
+
+.night-mode hr{
+	border-color:white;
+}
+.night-mode div.footer-nav li a{
+	color:white;
+}
 
 h1{
 	letter-spacing: 1.5px;
@@ -48,45 +58,6 @@ section{
 	border: 1px solid #111111;
 }
 
-
-/*********************************************
------------      Footbar        --------------
-**********************************************/
-footer 
-{	
-/*	position: absolute;*/
-/*	height: 70px;*/
-	margin-top: 100px;
-	right: 0;
-	left: 0;
-	bottom: 0;
-}
-
-
-.footer-nav li
-{
-	display: inline;
-}
-
-.footer-nav li:not(:first-child):before
-{
-	content: '|';
-	padding: 0px 10px;
-}
-
-.footer-nav a
-{
-	color:#999999;
-}
-
-.footer-nav a:hover
-{
-	/*color : #fff;*/
-
-	color: #00AADE;
-	text-decoration: none;
-}
-
 .no-js #loader { display: none;  }
 .js #loader { display: block; position: absolute; left: 100px; top: 0; }
 .se-pre-con {
@@ -97,14 +68,6 @@ footer
 	height: 100%;
 	z-index: 9999;
 	background: url(Preloader_2.gif) center no-repeat #fff;
-}
-
-.darkSwitch{
-    background:#999999;
-}
-input{
- float:right;
- margin-bottom: 30px;
 }
 
 .comment-reply{

@@ -23,15 +23,13 @@ ul{
 	padding: 0px 10px;
 }
 
-.human-social-links a 
+.human-social-links 
 {
-	color:#545454;
+	color:#00AADE;
 }
 
 .human-social-links a:hover 
-{
-	/*color : #fff;*/
-	
-	color: #000000;
+{	
+	color: grey;
 	text-decoration: none;
 }

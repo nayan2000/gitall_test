@@ -39,3 +39,6 @@ secret
 
 # For people using IntelliJ Python IDE
 .idea/*
+
+# dbs
+*.sqlite3

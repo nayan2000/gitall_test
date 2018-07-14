@@ -16,13 +16,6 @@ p{
 	font-weight: bold;
 }
 
-/*Didn't use as not needed*/
-/*#landing_text{
-	justify-content: center;
-	align-items: center;
-}
-
-*/
 #landing_block {
 	background-color: #ffffff;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -42,7 +35,6 @@ p{
 
 }
 
-
 #totos{
 	background-color: #ffffff;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -51,7 +43,6 @@ p{
 .jumbotron{
 	margin-bottom:20px; 
 	color: #999999;
-	font-color: #000000;
 }
 
 

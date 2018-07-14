@@ -1,3 +1,7 @@
+"""
+   Views for comment system.
+   Views are simply a Python function that takes a Web request and returns a Web response.
+"""
 from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect, Http404, HttpResponse
@@ -8,7 +12,9 @@ from .models import Comment
 
 
 def comment_delete(request, id):
-
+    """
+        this function delete the comment from tutorial
+    """
     try:
         obj = Comment.objects.get(id=id)
     except:
@@ -34,6 +40,9 @@ def comment_delete(request, id):
     return render(request, "comments/confirm_delete.html", context)
 
 def comment_thread(request, id):
+    """
+       this function is for reply on an comment of a tutorial or post
+    """
     #obj = Comment.objects.get(id=id)
     try:
         obj = Comment.objects.get(id=id)
@@ -43,7 +52,7 @@ def comment_thread(request, id):
     if not obj.is_parent:
         obj = obj.parent
 
-    content_object = obj.content_object # Post that the comment is on
+    content_object = obj.content_object # it is the post where we have the comment
     content_id = obj.content_object.id
 
     initial_data = {

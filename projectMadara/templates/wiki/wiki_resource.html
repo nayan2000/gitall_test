@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load urlify %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block style %}
+    <head>
+        {{form.media}}
+    </head>
+{% endblock %}
+
+{% block content %}
+
+
+<center>
+    <big><h1><b><u>{{instance.title}}</u></b></h1></big><br/>
+</center>
+<div align="right" style="color:grey">
+    <small>
+        Author - {{instance.user}}<br/>
+        Created - {{instance.timestamp}}<br/>
+        Last Update - {{instance.last_updated}}<br/>
+    </small>
+</div>
+<hr/>
+<div class="container" align="center">
+<div class="col-sm-4">
+    <a href="{{ instance.get_absolute_url }}" class="btn btn-success">Details</a><br/>
+</div>
+
+<div class="col-sm-4">
+    <a href="{{ instance.get_absolute_url }}wiki_resource" class="btn btn-info">Resources</a><br/>
+</div>
+
+<div class="col-sm-4">
+    <a href="{{ instance.get_absolute_url }}wiki_community" class="btn btn-danger"> Community</a><br/>
+</div>
+</div>
+<hr/>
+
+{% if request.user.is_authenticated %}
+     <h2>
+         <b>
+             Add Resource
+        </b>
+     </h2>
+     <form method="post" action="" enctype="multipart/form-data">
+         {% csrf_token %}
+        <!--Title-{{form.title}}<br/>-->
+        <!--Link(if any)-{{form.link}}<br/>-->
+        <!--Description-{{form.resource}}<br/>-->
+        {{form|crispy}}
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+{% else %}
+    <div class="panel panel-danger">
+        <div class="panel-heading" align="center"><h1>{{text}}</h1></div>
+    </div>
+{% endif %}
+<hr/>
+
+{% for i in resource %}
+    {% ifequal i.wiki instance.title %}
+        <div class="panel panel-info container row">
+            <div class="panel-heading container col-sm-12">
+                <div class="col-sm-8">
+                    <h2>
+                        {{ i.title}}
+                    </h2>
+                    <span style="color:black"> Link- </span><a href="{{i.link}}">{{i.link}}</a>
+                </div>
+                <div class="col-sm-4" align="right">
+                    <small style="color:grey">
+                        Posted by - {{i.user}}<br/>
+                        Posted on - {{i.date}}<br/>
+                    </small>
+                </div>
+            </div>
+<div class="content-markdown">
+{{i.resource}}
+</div>
+        </div><br/>
+    {% endifequal %}
+{% endfor %}
+
+
+{% endblock %}[server]
