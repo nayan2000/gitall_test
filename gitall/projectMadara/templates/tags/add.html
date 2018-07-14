@@ -14,9 +14,18 @@
 		</div>
 		<div class="col-md-8 col-md-offset-2">
 			<form method="POST" action="" enctype="multipart/form-data"> {%csrf_token%}
-			{{ form | crispy }} 
+			{{ form | crispy }}
 			<input class="btn btn-submit" type="submit" value="Create" align="center"></input>
 			</form>
+			<p style="visibility: hidden">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquolor in reprehendjjdjvjfjvj
+			<form method="POST" action="" enctype="multipart/form-data"> {%csrf_token%}
+			{{ add_tags_form | crispy }}
+			<input class="btn btn-submit" type="submit" value="Add" align="center"></input>
+		</form>
+		<a href="{{instance.get_absolute_url}}"><button type="button" class="btn btn-primary">
+	<span style="color: white">Go to Tutorial</span>
+	</button></a>
 		</div>
 	</div>
 {% endblock %}[server]

@@ -227,13 +227,22 @@ def filter_content(content):
 	print(content)
 
 def add_tag(request, slug):
-	"""
-		This makes sure that the form accpets a POST requests (of some data) or Nothing.
-		Without this the form would even accept empty totos.
-	"""
+	toto = get_object_or_404(Toto, slug=slug)
 	if not request.user.is_authenticated():
 		raise Http404
-	form = TagForm(request.POST or None)
+	add_tags_form =  AddTagsForm(data=request.POST)
+	if add_tags_form.is_valid():
+		form_instance = add_tags_form.save(commit=False)
+		toto_tags = add_tags_form.cleaned_data['tags']
+		for tag in toto_tags:
+			if (len(tag.text.split(' '))>1):
+				continue
+			toto.tags.add(tag)
+	else:
+		add_tags_form = AddTagsForm()
+
+
+	form = TagForm(data=request.POST)
 	text = form['text'].value()
 	print(text)
 	toto = get_object_or_404(Toto, slug=slug)
@@ -243,26 +252,17 @@ def add_tag(request, slug):
 		if (text==a.text):
 			flag = 1
 			break
-	if (flag == 1):
-		toto.tags.add(a)
-		toto.save()
-		messages.success(request, "Tag added!")
-		return redirect("toto:detail", slug=slug)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.user = request.user
 		instance.save()
-		toto = get_object_or_404(Toto, slug=slug)
-		toto.tags.add(instance)
-		toto.save()
-		print(toto.tags.all())
-		messages.success(request, "Tag added!")
-		return redirect("toto:detail", slug=slug)
-	message = "Spaces are not allowed in tag name."
-	messages.error(request, message, extra_tags="")
+	else:
+		form =  TagForm()
 	context = {
 		'title': "Create",
 		'form' : form,
+		'add_tags_form': add_tags_form,
+		'instance': toto,
 	}
 	return render(request, 'tags/add.html', context)
 

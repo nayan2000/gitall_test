@@ -48,22 +48,13 @@
 
 <a href="{{instance.get_absolute_url}}add_tag/">
 	<button type="button" class="btn btn-primary">
-<span style="color: white">Create and Add a New Tag </span><span><a href="{{instance.get_absolute_url}}add_tag/"  class="badge badge-primary" > GO </a></span>
+<span style="color: white">Add Tags</span><span><a href="{{instance.get_absolute_url}}add_tag/"  class="badge badge-primary" > GO </a></span>
 </button></a>
 <!-- <a href="{% url 'tags:create_tag' %}">
 	<button type="button" class="btn btn-primary">
 <span style="color: white">Create a New Tag </span><span><a href="{% url 'tags:create_tag' %}"  class="badge badge-primary" > GO </a></span>
 </button></a> -->
-	<button type="button" class="btn btn-primary">
-<span style="color: white">Add Existing Tags</span>
-</button>
 
-{% if request.user.is_authenticated %}
-<form method="POST" action="" enctype="multipart/form-data"> {%csrf_token%}
-{{ add_tags_form | crispy }}
-<input class="btn btn-submit" type="submit" value="Add" align="center"></input>
-{% endif %}
-	<hr />
 
 		<hr/>
 
