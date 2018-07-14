@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load urlify %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block style %}
+    <head>
+        {{form.media}}
+    </head>
+{% endblock %}
+
+{% block content %}
+
+{% if instance.user == request.user %}
+          <div align="right"><a href="{{ instance.get_absolute_url }}edit" class="btn btn-warning">Edit</a></div>
+{% endif %}
+
+<center>
+    <big><h1><b><u>{{instance.title}}</u></b></h1></big><br/>
+</center>
+<div align="right" style="color:grey">
+    <small>
+        Author - {{instance.user}}<br/>
+        Created - {{instance.timestamp}}<br/>
+        Last Update - {{instance.last_updated}}<br/>
+    </small>
+</div>
+<hr/>
+<div class="container" align="center">
+<div class="col-sm-4">
+    <a href="{{ instance.get_absolute_url }}" class="btn btn-success">Details</a><br/>
+</div>
+
+<div class="col-sm-4">
+    <a href="{{ instance.get_absolute_url }}wiki_resource" class="btn btn-info">Resources</a><br/>
+</div>
+
+<div class="col-sm-4">
+    <a href="{{ instance.get_absolute_url }}wiki_community" class="btn btn-danger"> Community</a><br/>
+</div>
+</div>
+<hr/>
+
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+<h3>Description : </h3><span>{{instance.content}}</span>
+<br />
+{% if instance.history %}
+<h3>History : </h3><span>{{instance.content}}</span>
+<br />
+{% endif %}
+  {% if tags %}
+    <h3> Tags : </h3>
+    {% for tag in tags %}
+    <span><button type="button" class="btn btn-primary">{{ tag }}<span><a href="{{instance.get_absolute_url}}{{tag}}/delete_tag/" class="badge badge-primary"> x </a></span>
+    </button></span>
+    {% endfor %}
+    {% else %}
+      <h3 style="font-weight: bold;"> Tags : Oops! No tags found </h3>
+  {% endif %}
+<br /> <br />
+
+<a href="{{instance.get_absolute_url}}add_tag/">
+<button type="button" class="btn btn-primary">
+<span style="color: white">Add Tags</span><span><a href="{{instance.get_absolute_url}}add_tag/"  class="badge badge-primary" > GO </a></span>
+</button></a>
+<br />
+{% if instance.features %}
+<h3>Features : </h3><span>{{instance.features}}</span><br />
+{% endif %}
+{% if instance.version_history %}
+<h3>Version History : </h3><span>{{instance.version_history}}</span>
+<br />
+{% endif %}
+{% if instance.url %}
+<h3>Url(s) : </h3><span>{{instance.url}}</span><br />
+{% endif %}
+{% if instance.tech_name %}
+<h3>Technology: </h3><span>{{instance.tech_name}}</span><br />
+{% endif %}
+{% if instance.website %}
+<h3>Website : </h3><span><a href="{{instance.website}}">{{instance.website}}</a></span><br />
+{% endif %}
+{% if instance.eli %}
+<h3>ELI: </h3><span>{{instance.eli}}</span>
+{% endif %}
+</div>
+</div>
+{% endblock %}

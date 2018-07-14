@@ -1,0 +1,24 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+
+<hr >
+<div class="upper-footer footer-nav"> 
+<div class="row">
+  <div class="col-sm-4 footer-nav-left">
+        <li><a href="{% url 'terms' %}">Terms</a></li>
+        <li><a href="{% url 'privacy' %}">Privacy</a></li>
+  </div>
+  <div class="col-sm-4 footer-nav-center">
+      
+    Made with &hearts; in New Delhi, India
+  </div>
+  <div class="col-sm-4 footer-nav-right">
+    <ul>
+      <li><a href="{% url 'contact'%}">Contact</a></li>
+      <li><a href="{% url 'about' %}">About Us</a></li>
+      <li><a href="{% url 'partners' %}">Partners</a></li>
+    </ul>
+  </div>
+      
+</div>
+</div>

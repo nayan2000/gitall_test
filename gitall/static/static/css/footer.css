@@ -1,0 +1,50 @@
+footer 
+{	
+	margin-top: 100px;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	padding-bottom:17px ;
+}
+
+.footer-nav-right
+{
+	text-align: right;
+}
+
+.footer-nav-left
+{
+	text-align: left;
+}
+
+.footer-nav-center
+{
+	text-align: center;
+	color:#999999;
+}
+
+.footer-nav li
+{
+	display: inline;
+}
+
+.footer-nav li:not(:first-child):before
+{
+	content: '|';
+	padding: 0px 10px;
+}
+
+.footer-nav a
+{
+	color:grey;
+}
+.footer-nav a:hover
+{
+	color: #00AADE;
+	text-decoration: none;
+}
+
+hr{
+	border-top: 1px solid gray;
+}
+

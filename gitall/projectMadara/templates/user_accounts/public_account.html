@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load urlify %}
+
+{% block style %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/accounts/public_profile.css' %}">
+{% endblock %}
+{% block content %}
+<div class="clearfix" style="height: 40px;"></div>
+<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+		{% if instance.photo %}
+		<img src="{{ instance.photo.url }}" class="img-circle img-responsive" style="max-height: 200px; margin:auto;" align="center">
+		{% endif %}
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+		<h2 align="center" style="font-weight: bold;">{{instance.user}}</h2>
+		<h5 align="center" style="font-weight: bold;">{{instance.bio}}</h5>
+	</div>
+</div>
+
+<!-- analytics part -->
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<hr/>
+	</div>
+</div>
+
+<div class="row analytics" align="center">
+	<div class="col-md-1 col-md-offset-3">
+		<div class="row">
+			<p>Tutorials</p>
+		</div>
+		<div class="row">
+			<p class="values">N/A</p>
+		</div>
+	</div>
+	<div class="col-md-1">
+		<div class="row">
+			 <p> Points </p>
+		</div>
+		<div class="row">
+			<p class="values">N/A</p>
+		</div>
+	</div>
+	<div class="col-md-1">
+		<div class="row">
+			 <p> Views </p>
+		</div>
+		<div class="row">
+			<p class="values">N/A</p>
+		</div>
+	</div>		
+	<div class="col-md-1">
+		<div class="row">
+			 <p> Upvotes </p>
+		</div>
+		<div class="row">
+			<p class="values">N/A</p>
+		</div>
+	</div>
+	<div class="col-md-1">
+		<div class="row">
+			<p>Followers</p>
+		</div>
+		<div class="row">
+			<p class="values">1</p>
+		</div>
+	</div>
+	<div class="col-md-1">
+		<div class="row">
+			<p>Following</p>
+		</div>
+		<div class="row">
+			<p class="values">1</p>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<hr/>
+	</div>
+</div>	
+<!-- social credentials -->
+<div class="clearfix" style="height: 20px;"></div>
+<div class="row">
+	<div class="col-md-4 col-md-offset-4" align="center">
+		<ul class="social_links" style="padding-right: 40px;">
+			<li><i class="fa fa-facebook-square fa-lg"><a href="{{instance.facebook_link}}"></a></i></li>
+			<li><i class="fa fa-twitter-square fa-lg"><a href="{{instance.twitter_link}}"></a></i></li>
+			<li><i class="fa fa-linkedin-square fa-lg"><a href="{{instance.linkedin_link}}"></a></i></li>
+			<li><i class="fa fa-github-square fa-lg"><a href="{{instance.github_link}}"></a></i></li>
+			<li><i class="fa fa-reddit-square fa-lg"><a href="{{instance.reddit_link}}"></a></i></li>		
+		</ul>
+	</div>
+</div>
+{% endblock %}

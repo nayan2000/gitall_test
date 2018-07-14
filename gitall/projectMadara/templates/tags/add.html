@@ -1,0 +1,31 @@
+{% extends '../base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% block style %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/write/write.css' %}">
+	{{ form.media }}
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<h1>{{title}}</h1>
+			<p>You are on the tag creation page.</p>
+		</div>
+		<div class="col-md-8 col-md-offset-2">
+			<form method="POST" action="" enctype="multipart/form-data"> {%csrf_token%}
+			{{ form | crispy }}
+			<input class="btn btn-submit" type="submit" value="Create" align="center"></input>
+			</form>
+			<p style="visibility: hidden">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliquolor in reprehendjjdjvjfjvj
+			<form method="POST" action="" enctype="multipart/form-data"> {%csrf_token%}
+			{{ add_tags_form | crispy }}
+			<span><input class="btn btn-submit" type="submit" value="Add" align="center"></input>
+		</form>		<a  href="{{instance.get_absolute_url}}"><button float="center" type="button" class="btn btn-primary">
+			<span style="color: white">Go to Tutorial</span>
+			</button></a></span>
+
+		</div>
+	</div>
+{% endblock %}[server]

@@ -1,0 +1,16 @@
+.social_links li
+{
+	display: inline;
+}
+
+.social_links li:not(:first-child):before
+{
+	content: '';
+	padding: 0px 10px;
+}
+
+.analytics .values{
+	font-weight: bold;
+	font-size: 25px;
+	color: #d3d3d3;
+}

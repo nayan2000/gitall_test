@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load urlify %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block style %}
+    <head>
+        {{form.media}}
+    </head>
+{% endblock %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+     <form method="post">{% csrf_token %}
+        Title-{{form.title}}<br/>
+        Description-{{form.content}}<br/>
+        History-{{form.history}}<br/>
+        Features-{{form.features}}<br/>
+        Version History-{{form.version_history}}<br/>
+        URL(s){{form.url}}<br/>
+        Technology{{form.tech_name}}<br/>
+        Website{{form.website}}<br/>
+        ELI{{form.eli}}<br/>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+{% else %}
+    <div class="panel panel-danger">
+        <div class="panel-heading" align="center"><h1>{{text}}</h1></div>
+    </div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends '../base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+		<h1 align="center">Our Partners</h1>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-4 col-md-offset-4">
+		<img class="img img-responsive" src="{% static 'img/partners/dottech.png' %}">
+	</div>
+	<div class="col-md-4 col-md-offset-4" align="center"><a href="https://get.tech"><p>dotTech</p></a></div>
+</div>
+{% endblock %}
